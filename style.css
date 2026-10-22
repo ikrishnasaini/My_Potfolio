@@ -1,0 +1,574 @@
+/* =========================================
+   GLOBAL VARIABLES (MONOCHROME THEME ENGINE)
+   ========================================= */
+:root {
+    /* --- LIGHT MODE (Paper) --- */
+    --bg: #ffffff;
+    --bg-alt: #f6f6f6;
+    --text-primary: #0a0a0a;
+    --text-secondary: #5c5c5c;
+    --border: #0a0a0a;
+    --border-soft: #d9d9d9;
+    --invert-bg: #0a0a0a;
+    --invert-text: #ffffff;
+    --shadow-color: rgba(10, 10, 10, 0.06);
+    --shadow-hover: rgba(10, 10, 10, 0.16);
+    --navbar-bg: rgba(255, 255, 255, 0.75);
+    --card-bg: #ffffff;
+
+    /* Fonts */
+    --font-display: 'Space Grotesk', sans-serif;
+    --font-body: 'Inter', sans-serif;
+    --font-mono: 'JetBrains Mono', monospace;
+}
+
+/* --- DARK MODE (Ink) --- */
+body.dark-mode {
+    --bg: #0a0a0a;
+    --bg-alt: #131313;
+    --text-primary: #ffffff;
+    --text-secondary: #9a9a9a;
+    --border: #ffffff;
+    --border-soft: #2b2b2b;
+    --invert-bg: #ffffff;
+    --invert-text: #0a0a0a;
+    --shadow-color: rgba(0, 0, 0, 0.4);
+    --shadow-hover: rgba(255, 255, 255, 0.1);
+    --navbar-bg: rgba(10, 10, 10, 0.75);
+    --card-bg: #101010;
+}
+
+/* =========================================
+   BASE STYLES
+   ========================================= */
+* {
+    box-sizing: border-box;
+}
+
+body {
+    background: var(--bg);
+    min-height: 100vh;
+    font-family: var(--font-body);
+    font-size: 16px;
+    margin: 0;
+    color: var(--text-primary);
+    overflow-x: hidden;
+    transition: background 0.4s ease, color 0.4s ease;
+}
+
+h1, h2, h3 {
+    font-family: var(--font-display);
+    font-weight: 700;
+    letter-spacing: -0.02em;
+}
+
+::selection {
+    background-color: var(--text-primary);
+    color: var(--bg);
+}
+
+a {
+    color: inherit;
+}
+
+/* =========================================
+   SCROLL PROGRESS BAR
+   ========================================= */
+#progressBar {
+    display: block;
+    height: 3px;
+    width: 100%;
+    background-color: var(--text-primary);
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 1002;
+    transform-origin: left;
+    scale: 0 1;
+    animation: scroll-it linear;
+    animation-timeline: scroll();
+    transition: background-color 0.4s ease;
+}
+
+@keyframes scroll-it {
+    from { scale: 0 1; }
+    to { scale: 1 1; }
+}
+
+/* =========================================
+   NAVIGATION BAR
+   ========================================= */
+.topNavbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 25px;
+    border-radius: 2px;
+    backdrop-filter: blur(15px);
+    -webkit-backdrop-filter: blur(15px);
+    width: 90%;
+    max-width: 1100px;
+    height: 68px;
+    position: sticky;
+    top: 20px;
+    margin: 0 auto 60px auto;
+    z-index: 1000;
+    background: var(--navbar-bg);
+    border: 1px solid var(--border-soft);
+    transition: all 0.4s ease;
+}
+
+#avatar {
+    display: flex;
+    align-items: center;
+    gap: 22px;
+}
+
+/* NAVBAR ICONS */
+#avatar a {
+    color: var(--text-primary) !important;
+    text-decoration: none;
+}
+
+#avatar .nav-icon {
+    font-size: 18px;
+    color: var(--text-primary) !important;
+    transition: color 0.25s ease, opacity 0.25s ease;
+}
+
+#avatar .nav-icon:hover {
+    color: var(--text-secondary) !important;
+    opacity: 1;
+}
+
+#connect h1 {
+    font-family: var(--font-mono);
+    font-size: 1.15rem;
+    font-weight: 700;
+    margin: 0;
+    letter-spacing: 0;
+}
+
+#connect h1::after {
+    content: '.dev';
+    color: var(--text-secondary);
+    font-weight: 400;
+}
+
+#switchMode svg {
+    color: var(--text-primary);
+    transition: transform 0.3s ease;
+}
+
+#switchMode:hover svg {
+    transform: rotate(20deg);
+}
+
+/* =========================================
+   HERO SECTION
+   ========================================= */
+#myWindow {
+    padding: 20px 10px 40px;
+    text-align: left;
+    max-width: 820px;
+    margin: 0 auto 40px auto;
+}
+
+.eyebrow {
+    font-family: var(--font-mono);
+    font-size: 0.9rem;
+    color: var(--text-secondary);
+    margin: 0 0 14px 0;
+}
+
+.eyebrow::before {
+    content: '> ';
+    color: var(--text-primary);
+}
+
+.eyebrow .cursor {
+    display: inline-block;
+    width: 8px;
+    height: 1em;
+    background: var(--text-primary);
+    margin-left: 4px;
+    vertical-align: middle;
+    animation: blink 1s step-end infinite;
+}
+
+@keyframes blink {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0; }
+}
+
+#myWindow h1 {
+    font-size: 4.2rem;
+    line-height: 1.02;
+    margin: 0 0 18px 0;
+    text-transform: uppercase;
+}
+
+.highlight {
+    color: var(--text-primary);
+    text-decoration: underline;
+    text-decoration-thickness: 4px;
+    text-underline-offset: 8px;
+    text-decoration-color: var(--text-primary);
+}
+
+.role-line {
+    font-family: var(--font-mono);
+    font-size: 0.95rem;
+    color: var(--text-secondary);
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    margin: 0 0 24px 0;
+}
+
+.role-line .sep {
+    margin: 0 8px;
+    color: var(--border-soft);
+}
+
+#myWindow h6 {
+    font-family: var(--font-body);
+    font-size: 1.05rem;
+    font-weight: 400;
+    color: var(--text-secondary);
+    line-height: 1.8;
+    margin: 0 0 34px 0;
+    max-width: 620px;
+}
+
+#myWindow h6 i {
+    display: block;
+    margin-top: 10px;
+    color: var(--text-primary);
+    font-style: italic;
+}
+
+#exploreBtn {
+    font-family: var(--font-mono);
+    font-size: 14px;
+    padding: 16px 38px;
+    background: var(--text-primary);
+    color: var(--bg);
+    border: 1px solid var(--text-primary);
+    border-radius: 2px;
+    cursor: pointer;
+    transition: all 0.25s ease;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+}
+
+#exploreBtn:hover {
+    background: transparent;
+    color: var(--text-primary);
+}
+
+/* =========================================
+   PROJECT SECTIONS
+   ========================================= */
+.container {
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+.frames {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    margin-bottom: 60px;
+    border-top: 1px solid var(--border-soft);
+}
+
+.section-heading {
+    font-size: 1.9rem;
+    margin: 70px 0 30px;
+    text-transform: uppercase;
+    color: var(--text-primary);
+    padding-bottom: 16px;
+    border-bottom: 2px solid var(--text-primary);
+}
+
+.section-heading i {
+    color: var(--text-secondary);
+    font-size: 1.5rem;
+}
+
+/* --- Project Row Card --- */
+.project-card {
+    display: grid;
+    grid-template-columns: 130px 1fr;
+    gap: 34px;
+    padding: 34px 10px;
+    background: var(--card-bg);
+    border-radius: 0;
+    border-bottom: 1px solid var(--border-soft);
+    transition: background 0.25s ease, color 0.25s ease;
+    cursor: default;
+}
+
+.project-card:hover {
+    background: var(--invert-bg);
+    color: var(--invert-text);
+}
+
+.project-card:hover .projText h2,
+.project-card:hover .projText p,
+.project-card:hover .projShade,
+.project-card:hover .projShade i,
+.project-card:hover .projShade svg,
+.project-card:hover .projShade p {
+    color: var(--invert-text);
+}
+
+.project-card:hover .projShade {
+    border-color: var(--invert-text);
+}
+
+.project-card:hover .visit-btn {
+    color: var(--invert-text);
+    border-color: var(--invert-text);
+}
+
+.project-card:hover .visit-btn:hover {
+    background: var(--invert-text);
+    color: var(--invert-bg);
+}
+
+/* --- Icon Box --- */
+.projShade {
+    background: transparent;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 110px;
+    width: 110px;
+    border-radius: 0;
+    color: var(--text-primary);
+    border: 1px solid var(--border);
+    transition: border-color 0.25s ease;
+}
+
+.projShade i, .projShade svg {
+    font-size: 38px;
+    color: var(--text-primary) !important;
+    transition: color 0.25s ease;
+}
+
+.projShade p {
+    font-family: var(--font-mono);
+    font-size: 10px;
+    margin-top: 10px;
+    font-weight: 500;
+    color: var(--text-secondary);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+/* Text Content */
+.projText {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    text-align: left;
+}
+
+.projText h2 {
+    margin: 0 0 10px 0;
+    font-size: 1.4rem;
+    color: var(--text-primary);
+    text-transform: none;
+}
+
+.projText p {
+    font-family: var(--font-body);
+    font-size: 0.98rem;
+    line-height: 1.65;
+    color: var(--text-secondary);
+    margin: 0 0 20px 0;
+    max-width: 560px;
+}
+
+/* Visit Button */
+.visit-btn {
+    display: inline-block;
+    padding: 10px 24px;
+    width: fit-content;
+    background: transparent;
+    color: var(--text-primary);
+    border: 1px solid var(--text-primary);
+    font-family: var(--font-mono);
+    font-size: 0.78rem;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    border-radius: 0;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    text-decoration: none;
+}
+
+.visit-btn:hover {
+    background: var(--text-primary);
+    color: var(--bg);
+}
+
+.btn-group {
+    display: flex;
+    gap: 14px;
+    flex-wrap: wrap;
+}
+
+.visit-btn.filled {
+    background: var(--text-primary);
+    color: var(--bg);
+}
+
+.project-card:hover .visit-btn.filled {
+    background: var(--invert-text);
+    color: var(--invert-bg);
+    border-color: var(--invert-text);
+}
+
+.visit-btn.filled:hover {
+    background: transparent;
+    color: var(--text-primary);
+}
+
+.project-card:hover .visit-btn.filled:hover {
+    background: transparent;
+    color: var(--invert-text);
+}
+
+/* =========================================
+   FOOTER
+   ========================================= */
+.footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 50px 10%;
+    background: #0a0a0a;
+    color: #fff;
+    margin-top: 80px;
+    border-top: 1px solid #222;
+}
+
+.footer-left h2 {
+    font-family: var(--font-mono);
+    font-size: 1.1rem;
+    margin: 0;
+    text-transform: uppercase;
+}
+.footer-left p {
+    font-family: var(--font-body);
+    font-size: 0.85rem;
+    color: #777;
+    margin-top: 6px;
+}
+
+.footer-center ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    color: #555;
+}
+
+.footer-right p {
+    font-family: var(--font-mono);
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: #777;
+    margin-bottom: 10px;
+    text-align: right;
+}
+
+.social-icons a {
+    color: #fff;
+    font-size: 1.25rem;
+    margin-left: 20px;
+    transition: opacity 0.25s ease;
+}
+
+.social-icons a:hover {
+    opacity: 0.5;
+}
+
+/* =========================================
+   RESPONSIVE DESIGN (MOBILE)
+   ========================================= */
+@media (max-width: 768px) {
+    .topNavbar {
+        width: 95%;
+        padding: 0 15px;
+        height: 58px;
+    }
+
+    #myWindow {
+        margin: 20px auto;
+        padding: 20px 10px;
+        text-align: center;
+    }
+
+    .role-line, #myWindow h6 {
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    #myWindow h1 {
+        font-size: 2.4rem;
+    }
+
+    .section-heading {
+        font-size: 1.4rem;
+    }
+
+    .project-card {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+        padding: 30px 15px;
+    }
+
+    .btn-group {
+        justify-content: center;
+    }
+
+    .projShade {
+        width: 85px;
+        height: 85px;
+        margin-bottom: 6px;
+    }
+
+    .projShade i {
+        font-size: 32px;
+    }
+
+    .projText {
+        text-align: center;
+        align-items: center;
+    }
+
+    .visit-btn {
+        width: 100%;
+        max-width: 220px;
+        text-align: center;
+    }
+
+    .footer {
+        flex-direction: column;
+        gap: 26px;
+        text-align: center;
+        padding: 40px 20px;
+    }
+
+    .footer-right p {
+        text-align: center;
+    }
+}
